@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cek Nilai Mahasiswa</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background-color: #f2f2f2;
+}
+
+.container{
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+    text-align: center;
+}
+
+.form-group{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label{
+    width: 120px;
+}
+
+input{
+    flex: 1;
+    padding: 5px;
+}
+
+button{
+    width: 100%;
+    padding: 10px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: pink;
+}
+
+#hasil{
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.watermark{
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: gray;
+    opacity: 0.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Cek Huruf Mutu Nilai</h2>
+
+<div class="form-group">
+<label>NIM</label>
+<input type="text" id="nim">
+</div>
+
+<div class="form-group">
+<label>Nilai</label>
+<input type="number" id="nilai">
+</div>
+
+<button onclick="cekNilai()">Cek Nilai</button>
+
+<p id="hasil"></p>
+
+</div>
+
+<div class="watermark">@2026 halvina farras savitri</div>
+
+<script>
+
+function cekNilai(){
+
+let nim = document.getElementById("nim").value;
+let nilai = parseInt(document.getElementById("nilai").value);
+let huruf;
+
+if(nilai < 0 || nilai > 100){
+    document.getElementById("hasil").innerHTML = "Nilai tidak valid!";
+    return;
+}
+
+if(nilai >= 80){
+    huruf = "A";
+}
+else if(nilai >= 70){
+    huruf = "B";
+}
+else if(nilai >= 60){
+    huruf = "C";
+}
+else if(nilai >= 50){
+    huruf = "D";
+}
+else{
+    huruf = "E";
+}
+
+document.getElementById("hasil").innerHTML =
+"NIM: " + nim + "<br>Huruf Mutu: " + huruf;
+
+}
+
+</script>
+
+</body>
+</html>
