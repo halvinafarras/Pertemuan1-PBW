@@ -12,9 +12,11 @@ $stmt = $conn->prepare("UPDATE buku
 SET judul=?, penulis=?, tahun_terbit=?, harga=?, stok=? 
 WHERE id=?");
 
-$stmt->bind_param("ssidi i", $judul, $penulis, $tahun, $harga, $stok, $id);
+$stmt->bind_param("ssidii", $judul, $penulis, $tahun, $harga, $stok, $id);
 
-$stmt->execute();
-
-header("Location: index.php");
+if($stmt->execute()){
+    header("Location: index.php?msg=Data berhasil diupdate");
+} else {
+    header("Location: index.php?msg=Gagal update data");
+}
 ?>

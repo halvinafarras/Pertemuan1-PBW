@@ -13,7 +13,9 @@ VALUES (?, ?, ?, ?, ?)");
 
 $stmt->bind_param("ssidi", $judul, $penulis, $tahun, $harga, $stok);
 
-$stmt->execute();
-
-header("Location: index.php");
+if($stmt->execute()){
+    header("Location: index.php?msg=Data berhasil ditambah");
+} else {
+    header("Location: index.php?msg=Gagal tambah data");
+}
 ?>

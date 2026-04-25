@@ -6,7 +6,9 @@ $id = $_GET['id'];
 $stmt = $conn->prepare("DELETE FROM buku WHERE id=?");
 $stmt->bind_param("i", $id);
 
-$stmt->execute();
-
-header("Location: index.php");
+if($stmt->execute()){
+    header("Location: index.php?msg=Data berhasil dihapus");
+} else {
+    header("Location: index.php?msg=Gagal hapus data");
+}
 ?>
