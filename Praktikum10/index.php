@@ -1,10 +1,14 @@
 <?php 
+session_start();
+if (!isset($_SESSION['login_Un5lk4'])) {
+    header("Location: login.php?message=" . urlencode("Silakan login terlebih dahulu."));
+    exit;
+}
 include 'koneksi.php';
 
 $limit = 5;
-$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$GET['page'] : 1;
 $start = ($page - 1) * $limit;
-
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $like = "%$search%";
 
@@ -23,98 +27,51 @@ $pages = ceil($total / $limit);
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>CRUD Mahasiswa</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-body {
-    background: linear-gradient(to right, #eef2f3, #dfe9f3);
-}
-.card {
-    border-radius: 15px;
-}
-</style>
-
+    <title>CRUD Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>body { background: #f8f9fa; }</style>
 </head>
-
 <body>
-
 <nav class="navbar navbar-dark bg-primary shadow">
-<div class="container">
-<span class="navbar-brand mb-0 h1">📚 Data Mahasiswa</span>
-</div>
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">📚 Data Mahasiswa</span>
+        <div class="d-flex align-items-center text-white">
+            <span class="me-3">Halo, <?= htmlspecialchars($_SESSION['nama']) ?></span>
+            <a href="logout.php" class="btn btn-danger btn-sm">Keluar</a>
+        </div>
+    </div>
 </nav>
 
 <div class="container mt-5">
-
-<div class="card shadow p-4">
-
-<h4 class="mb-3">Daftar Mahasiswa</h4>
-
-<?php if(isset($_GET['msg'])): ?>
-<div class="alert alert-success">
-<?= htmlspecialchars($_GET['msg']) ?>
+    <div class="card shadow p-4">
+        <div class="d-flex justify-content-between mb-3">
+            <form method="GET" class="d-flex">
+                <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" class="form-control me-2" placeholder="Cari NIM...">
+                <button class="btn btn-outline-primary">Cari</button>
+            </form>
+            <a href="tambah.php" class="btn btn-success">+ Tambah Data</a>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-primary">
+                <tr><th>Nama</th><th>NIM</th><th>Jurusan</th><th>Email</th><th>Umur</th><th>Aksi</th></tr>
+            </thead>
+            <tbody>
+                <?php while($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['nama']) ?></td>
+                    <td><?= htmlspecialchars($row['nim']) ?></td>
+                    <td><?= htmlspecialchars($row['jurusan']) ?></td>
+                    <td><?= htmlspecialchars($row['email']) ?></td>
+                    <td><?= $row['umur'] ?></td>
+                    <td>
+                        <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
-<?php endif; ?>
-
-<div class="d-flex justify-content-between mb-3">
-
-<form method="GET" class="d-flex">
-<input type="text" name="search" value="<?= htmlspecialchars($search) ?>" class="form-control me-2" placeholder="Cari NIM...">
-<button class="btn btn-outline-primary">Cari</button>
-</form>
-
-<a href="tambah.php" class="btn btn-success">+ Tambah Data</a>
-
-</div>
-
-<div class="table-responsive">
-<table class="table table-hover align-middle">
-
-<thead class="table-primary">
-<tr>
-<th>ID</th><th>Nama</th><th>NIM</th><th>Jurusan</th><th>Email</th><th>Umur</th><th>Aksi</th>
-</tr>
-</thead>
-
-<tbody>
-<?php while($row = $result->fetch_assoc()): ?>
-<tr>
-<td><?= $row['id'] ?></td>
-<td><?= htmlspecialchars($row['nama']) ?></td>
-<td><?= htmlspecialchars($row['nim']) ?></td>
-<td><?= htmlspecialchars($row['jurusan']) ?></td>
-<td><?= htmlspecialchars($row['email']) ?></td>
-<td><?= $row['umur'] ?></td>
-<td>
-<a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-<a href="hapus.php?id=<?= $row['id'] ?>" 
-class="btn btn-danger btn-sm"
-onclick="return confirm('Yakin hapus?')">Hapus</a>
-</td>
-</tr>
-<?php endwhile; ?>
-</tbody>
-
-</table>
-</div>
-
-<nav>
-<ul class="pagination justify-content-center mt-3">
-<?php for($i=1; $i<=$pages; $i++): ?>
-<li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-<a class="page-link" href="?page=<?= $i ?>&search=<?= urlencode($search) ?>">
-<?= $i ?>
-</a>
-</li>
-<?php endfor; ?>
-</ul>
-</nav>
-
-</div>
-</div>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 24, 2026 at 08:22 AM
+-- Generation Time: May 03, 2026 at 01:46 PM
 -- Server version: 8.0.44
 -- PHP Version: 8.3.30
 
@@ -50,7 +50,29 @@ INSERT INTO `mahasiswa` (`id`, `nama`, `nim`, `jurusan`, `email`, `umur`) VALUES
 (10, 'Gina Putri', '2023007', 'Teknik Komputer', 'gina@gmail.com', 19),
 (11, 'Hadi Wijaya', '2023008', 'Informatika', 'hadi@gmail.com', 23),
 (12, 'Indah Sari', '2023009', 'Sistem Informasi', 'indah@gmail.com', 20),
-(13, 'Joko Susilo', '2023010', 'Teknik Komputer', 'joko@gmail.com', 22);
+(13, 'Joko Susilo', '2023010', 'Teknik Komputer', 'joko@gmail.com', 22),
+(14, 'Yassie', '1234', 'Informatika', 'halvinafarrassavitri@gmail.com', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengguna`
+--
+
+CREATE TABLE `pengguna` (
+  `id` int NOT NULL,
+  `nama` varchar(250) NOT NULL,
+  `katasandi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`id`, `nama`, `katasandi`) VALUES
+(1, 'admin', '12345'),
+(2, 'ayas', 'abc123'),
+(3, 'user2', '12345');
 
 --
 -- Indexes for dumped tables
@@ -63,6 +85,12 @@ ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -70,7 +98,13 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
