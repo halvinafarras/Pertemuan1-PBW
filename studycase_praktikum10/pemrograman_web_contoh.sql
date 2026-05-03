@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 24, 2026 at 08:32 AM
+-- Generation Time: May 03, 2026 at 02:10 PM
 -- Server version: 8.0.44
 -- PHP Version: 8.3.30
 
@@ -36,6 +36,27 @@ CREATE TABLE `buku` (
   `stok` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`id`, `judul`, `penulis`, `tahun_terbit`, `harga`, `stok`) VALUES
+(1, 'Laskar Pelangi', 'Andrea Hirata', 2005, 75000.00, 5),
+(2, 'Atomic Habits', 'James Clear', 2018, 120000.00, 5),
+(3, 'Clean Code', 'Robert C. Martin', 2008, 150000.00, 3),
+(4, 'Bumi', 'Tere Liye', 2014, 95000.00, 8),
+(5, 'Rich Dad Poor Dad', 'Robert Kiyosaki', 1997, 110000.00, 7),
+(6, 'Learning Python', 'Mark Lutz', 2013, 160000.00, 5),
+(7, 'Dilan 1990', 'Pidi Baiq', 2014, 85000.00, 7),
+(8, 'The Pragmatic Programmer', 'Andrew Hunt', 1999, 140000.00, 4),
+(9, 'Hujan', 'Tere Liye', 2016, 92000.00, 6),
+(10, 'Think and Grow Rich', 'Napoleon Hill', 1937, 105000.00, 4),
+(11, 'Eloquent JavaScript', 'Marijn Haverbeke', 2018, 135000.00, 6),
+(12, 'Perahu Kertas', 'Dee Lestari', 2009, 88000.00, 9),
+(13, 'You Do You', 'Fellexandro Ruby', 2020, 98000.00, 8),
+(14, 'Head First Java', 'Kathy Sierra', 2005, 145000.00, 4),
+(15, 'The Subtle Art of Not Giving a F*ck', 'Mark Manson', 2016, 115000.00, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +83,27 @@ CREATE TABLE `pelanggan` (
   `email` varchar(255) NOT NULL,
   `telepon` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengguna`
+--
+
+CREATE TABLE `pengguna` (
+  `id` int NOT NULL,
+  `nama` varchar(250) NOT NULL,
+  `katasandi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`id`, `nama`, `katasandi`) VALUES
+(1, 'admin', '12345'),
+(2, 'ayas', 'abc123'),
+(3, 'user2', '12345');
 
 -- --------------------------------------------------------
 
@@ -100,6 +142,12 @@ ALTER TABLE `pelanggan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
@@ -114,13 +162,19 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pengguna`
+--
+ALTER TABLE `pengguna`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
